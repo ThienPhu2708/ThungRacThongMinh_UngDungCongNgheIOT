@@ -45,9 +45,42 @@ Dự án được phân chia thành các module (namespace) độc lập để t
  │ ┣ 📜 sensor_motor.h         # Đo lường % rác và áp dụng thuật toán lọc nhiễu trung vị
  │ ┗ 📜 ultrasonic_scheduler.h # Lịch trình thời gian, chống xung đột sóng âm 2 cảm biến
  ┣ 📜 diagram.json             # Cấu hình dây nối phần cứng dành cho Wokwi Simulator
- ┣ 📜 libraries.txt            # Danh sách thư viện phụ thuộc (Blynk, LiquidCrystal I2C...)
+ ┣ 📜 wokwi.toml                # Đường dẫn firmware .elf dành cho Wokwi Simulator
+ ┣ 📜 platformio.ini           # Khai báo môi trường ESP32 và thư viện phụ thuộc
  ┗ 📜 README.md                # Tài liệu hướng dẫn dự án
+```
+
+---
+
+## 🚀 Hướng dẫn Cấu hình & Chạy dự án (Cho người mới Clone từ GitHub)
+
+### ❓ Nguyên nhân khi Clone về bị lỗi không chạy được Wokwi:
+Thư mục chứa file đã biên dịch `.pio/build/esp32dev/firmware.elf` bị bỏ qua bởi `.gitignore` khi push lên GitHub. Do đó, khi bạn bè clone dự án về, **file `.elf` chưa tồn tại**. Nếu mở `diagram.json` để mô phỏng ngay, Wokwi sẽ báo lỗi không tìm thấy firmware.
+
+---
+
+### 🛠️ Các bước thiết lập & chạy dự án từ đầu (4 Bước đơn giản):
+
+#### **Bước 1: Cài đặt 2 Extension cần thiết trên VS Code**
+Vào mục **Extensions** (`Ctrl + Shift + X`) trên VS Code và cài đặt:
+1. **PlatformIO IDE** (`platformio.platformio-ide`)
+2. **Wokwi Simulator** (`Wokwi.wokwi-vscode`)
+
+#### **Bước 2: Mở đúng thư mục dự án trên VS Code**
+Vào **File** -> **Open Folder...** -> Chọn trực tiếp thư mục `ThungRacThongMinh_IOT` (không mở thư mục cha chứa dự án).
+
+#### **Bước 3: Biên dịch dự án (BẮT BUỘC TRƯỚC KHI BẬT WOKWI)**
+Để tạo file `firmware.elf` cho Wokwi đọc:
+- Click vào nút **Build (`✓`)** màu trắng dưới thanh trạng thái của PlatformIO.
+- Hoặc mở Terminal trong VS Code và gõ lệnh:
+  ```bash
+  pio run
+  ```
+- Chờ đến khi màn hình Terminal báo **`========================= [SUCCESS] =========================`**.
+
+#### **Bước 4: Khởi chạy mô phỏng Wokwi**
+1. Mở file `diagram.json`.
+2. Nhấn tổ hợp phím **`Ctrl + Shift + P`** -> Gõ **`Wokwi: Start Simulator`** và nhấn **Enter**.
+3. Giao diện vi điều khiển ESP32, Cảm biến siêu âm, LCD 16x2, Servo và Nút nhấn sẽ xuất hiện và chạy mô phỏng trực tiếp!
 
 
- ---
- 
